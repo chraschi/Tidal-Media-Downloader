@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# current working dir 
+alias wdir='PWD'  
+
+# always start with saving the working directory entry point as well as the root dir
+alias start_script='STARTDIR="$(wdir)"' 
+alias end_script='cd $STARTDIR'
+
+#aliases for the project root (the path string and a function to change directly in this directory) 
+#root absolut path is dynamicly provided by git config and the git alias 'root'
+alias rdir='echo $(git root)'     
+alias cdroot='cd $(rdir)'
+#save its value in a var which stays even when fall out of the folder
+
+#alias and cd function vor the tasks
+alias taskdir='echo $(rdir)/tasks'
+alias cdtasks='cd $(taskdir)'
+
+alias srcdir='echo $(rdir)/TIDALDL-PY'
+alias cdsrc='cd $(srcdir)'
+
+alias currentfiledir='echo $(dirname "$(readlink -f '$0')")'
+alias cdcurrentfileloc='cd $(currentfiledir)'
+
+alias cleanup=$(taskdir)/cleanup.sh
+alias build=$(taskdir)/build.sh
+alias upload=$(taskdir)/upload.sh
+alias init='source $(rdir)/environment'
+
+start_script
+
+cdroot && . "$(git --exec-path)/git-sh-setup"
+
+end_script

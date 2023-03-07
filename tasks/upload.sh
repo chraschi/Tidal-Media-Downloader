@@ -1,6 +1,8 @@
 #!/bin/sh
+source $(git root)/environment
 
-cd "$(dirname "$0")/../TIDALDL-PY"
+start_script
+cdsrc
 twine upload dist/*
 
-cd ..
+end_script

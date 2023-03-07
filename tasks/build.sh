@@ -1,5 +1,5 @@
 #!/bin/sh
-source $(git root)/tasks/env.sh
+source $(git root)/environment
 start_script
 cdtasks
 

@@ -1,11 +1,11 @@
 #!/bin/sh
-source $(git root)/tasks/env.sh
+source $(git root)/environment
 start_script
 cdroot
 rm -rfv dist
 rm -rfv build/ 
 rm -rfv __init__.spec
-cdproject
+cdsrc
 rm -rfv tidal_dl/__pycache__
 rm -rfv tidal_dl/lang/__pycache__
 rm -rfv __init__.spec 

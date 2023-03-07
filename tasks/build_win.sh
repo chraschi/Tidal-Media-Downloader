@@ -1,9 +1,9 @@
 #!/bin/sh
-source $(git root)/tasks/env.sh
+source $(git root)/environment
 
 start_script
 cleanup
-cdproject
+cdsrc
 
 python3 setup.py sdist bdist_wheel
 pyinstaller -F tidal_dl/__init__.py

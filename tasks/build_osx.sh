@@ -1,8 +1,8 @@
 #!/bin/sh
-source $(git root)/tasks/env.sh
+source $(git root)/environment
 start_script
 cleanup
-cdproject
+cdsrc
 
 python3 setup.osx.py py2app -A
 cd ./dist/tidal-dl.app/Contents/MacOS 
