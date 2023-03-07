@@ -2,21 +2,19 @@
 source $(git root)/tasks/env.sh
 start_script
 cdroot
-rm -rf dist
-rm -rf build/ 
-rm -rf __init__.spec
-echo "ERSTER TEIL GELöscht"
+rm -rfv dist
+rm -rfv build/ 
+rm -rfv __init__.spec
 cdproject
-rm -rf tidal_dl/__pycache__
-rm -rf tidal_dl/lang/__pycache__
-rm -rf __init__.spec 
-rm -rf dist
-rm -rf build 
-rm -rf exe
-rm -rf bin
-rm -rf app
-rm -rf .egg
-rm -rf MANIFEST.in
-rm -rf *.egg-info
-echo "ZWEITER TEIL GELöscht"
+rm -rfv tidal_dl/__pycache__
+rm -rfv tidal_dl/lang/__pycache__
+rm -rfv __init__.spec 
+rm -rfv dist
+rm -rfv build 
+rm -rfv exe
+rm -rfv bin
+rm -rfv app
+rm -rfv .egg
+rm -rfv MANIFEST.in
+rm -rfv *.egg-info
 end_script
