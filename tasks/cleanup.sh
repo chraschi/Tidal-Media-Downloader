@@ -1,11 +1,12 @@
 #!/bin/sh
-cd "$(dirname "$0")"
-cd ..
+source $(git root)/tasks/env.sh
+start_script
+cdroot
 rm -rf dist
 rm -rf build/ 
 rm -rf __init__.spec
 echo "ERSTER TEIL GELöscht"
-cd TIDALDL-PY
+cdproject
 rm -rf tidal_dl/__pycache__
 rm -rf tidal_dl/lang/__pycache__
 rm -rf __init__.spec 
@@ -18,4 +19,4 @@ rm -rf .egg
 rm -rf MANIFEST.in
 rm -rf *.egg-info
 echo "ZWEITER TEIL GELöscht"
-cd ..
+end_script

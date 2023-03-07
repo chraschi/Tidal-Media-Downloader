@@ -27,7 +27,7 @@ OPTIONS = {
                 "aigpy",
                 "lyricsgenius",
                 "pydub"],
-    'iconfile': 'tidal-dl.icns',
+    'iconfile': 'assets/tidal-dl.icns',
 }
 
 setup(

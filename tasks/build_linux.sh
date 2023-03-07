@@ -1,6 +1,8 @@
 #!/bin/sh
-cd "$(dirname "$0")" && ./cleanup.sh
-cd "$(dirname "$0")/../TIDALDL-PY" 
+source $(git root)/tasks/env.sh
+start_script
+cleanup
+cdproject
 
 python3 setup.py sdist bdist_wheel
 pyinstaller -F tidal_dl/__init__.py
@@ -10,4 +12,4 @@ chmod +x bin/tidal-dl
 
 pip uninstall -y tidal-dl
 
-cd ..
+end_script
