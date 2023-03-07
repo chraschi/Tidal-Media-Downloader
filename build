@@ -1,0 +1,22 @@
+#!/bin/sh
+cd "$(dirname "$0")"  
+case "$1" in
+    "win") tasks/build_win.sh
+    ;;
+    "osx") tasks/build_osx.sh
+    ;;
+    "linux") tasks/build_linux.sh
+    ;;
+    "all") tasks/build_linux.sh && tasks/build_osx.sh && tasks/build_win.sh
+    ;;
+    *) echo "--> Choose your target plattform to build the App for : " 
+    select yn in 'win' 'osx' 'linux' 'all'; do
+        case $yn in
+            win ) ./tasks/build_win.sh; break;;
+            osx ) ./tasks/build_osx.sh; break;;
+            linux ) ./tasks/build_linux.sh; break;;
+            all ) ./tasks/build_linux.sh && ./tasks/build_osx.sh && ./tasks/build_win.sh; break;;
+        esac
+    done
+    ;; 
+esac

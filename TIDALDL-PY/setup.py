@@ -18,5 +18,5 @@ setup(
                       "pycryptodome", 
                       "pydub", 
                       "prettytable"],
-    entry_points={'console_scripts': ['tidal-dl = tidal_dl:main', ]}
+    entry_points={'console_scripts': ['tidal-dl = "tidal_dl:main', ]}
 )
