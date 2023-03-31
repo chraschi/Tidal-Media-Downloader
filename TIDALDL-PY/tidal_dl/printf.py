@@ -101,7 +101,6 @@ class Printf(object):
             [LANG.select.SETTING_SHOW_PROGRESS, data.showProgress],
             [LANG.select.SETTING_SHOW_TRACKINFO, data.showTrackInfo],
             [LANG.select.SETTING_SAVE_ALBUMINFO, data.saveAlbumInfo],
-            [LANG.select.SETTING_DOWNLOAD_VIDEOS, data.downloadVideos],
             [LANG.select.SETTING_SAVE_COVERS, data.saveCovers],
             [LANG.select.SETTING_INCLUDE_EP, data.includeEP],
             [LANG.select.SETTING_LANGUAGE, LANG.getLangName(data.language)],
@@ -109,6 +108,7 @@ class Printf(object):
             [LANG.select.SETTING_MULITHREAD_DOWNLOAD, data.multiThread],
             [LANG.select.SETTING_APIKEY, f"[{data.apiKeyIndex}]" + apiKey.getItem(data.apiKeyIndex)['formats']],
             [LANG.select.SETTING_DOWNLOAD_DELAY, data.downloadDelay],
+            [LANG.select.SETTING_USE_AIFF, data.useAiff],
         ])
         print(tb)
 

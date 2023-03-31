@@ -10,6 +10,9 @@
 '''
 import aigpy
 import logging
+import subprocess
+from os import remove
+
 
 from tidal_dl.paths import *
 from tidal_dl.printf import *
@@ -144,6 +147,12 @@ def downloadTrack(track: Track, album=None, playlist=None, userProgress=None, pa
     try:
         stream = TIDAL_API.getStreamUrl(track.id, SETTINGS.audioQuality)
         path = getTrackPath(track, stream, album, playlist)
+        pathOrig = path
+        
+        useAiff = False
+        if SETTINGS.useAiff and pathOrig.rsplit(".", 1)[1] == 'flac':
+            path = pathOrig.replace(".flac", ".aiff")
+            useAiff = True
 
         if SETTINGS.showTrackInfo and not SETTINGS.multiThread:
             Printf.track(track, stream)
@@ -155,38 +164,52 @@ def downloadTrack(track: Track, album=None, playlist=None, userProgress=None, pa
         if __isSkip__(path, stream.url):
             Printf.success(aigpy.path.getFileName(path) + " (skip:already exists!)")
             return True, ''
+            
+        doDownload = True
+        if useAiff and __isSkip__(pathOrig, stream.url): doDownload = False
+        
 
-        # download
-        logging.info("[DL Track] name=" + aigpy.path.getFileName(path) + "\nurl=" + stream.url)
+        if doDownload:
+            # download
+            logging.info("[DL Track] name=" + aigpy.path.getFileName(path) + "\nurl=" + stream.url)
 
-        tool = aigpy.download.DownloadTool(path + '.part', [stream.url])
-        tool.setUserProgress(userProgress)
-        tool.setPartSize(partSize)
-        check, err = tool.start(SETTINGS.showProgress and not SETTINGS.multiThread)
-        if not check:
-            Printf.err(f"DL Track[{track.title}] failed.{str(err)}")
-            return False, str(err)
+            tool = aigpy.download.DownloadTool(pathOrig + '.part', [stream.url])
+            tool.setUserProgress(userProgress)
+            tool.setPartSize(partSize)
+            check, err = tool.start(SETTINGS.showProgress and not SETTINGS.multiThread)
+            if not check:
+                Printf.err(f"DL Track[{track.title}] failed.{str(err)}")
+                return False, str(err)
 
-        # encrypted -> decrypt and remove encrypted file
-        __encrypted__(stream, path + '.part', path)
+            # encrypted -> decrypt and remove encrypted file
+            __encrypted__(stream, pathOrig + '.part', pathOrig)
 
-        # contributors
-        try:
-            contributors = TIDAL_API.getTrackContributors(track.id)
-        except:
-            contributors = None
+            # contributors
+            try:
+                contributors = TIDAL_API.getTrackContributors(track.id)
+            except:
+                contributors = None
 
-        # lyrics
-        try:
-            lyrics = TIDAL_API.getLyrics(track.id).subtitles
-            if SETTINGS.lyricFile:
-                lrcPath = path.rsplit(".", 1)[0] + '.lrc'
-                aigpy.file.write(lrcPath, lyrics, 'w')
-        except:
-            lyrics = ''
+            # lyrics
+            try:
+                lyrics = TIDAL_API.getLyrics(track.id).subtitles
+                if SETTINGS.lyricFile:
+                    lrcPath = path.pathOrig(".", 1)[0] + '.lrc'
+                    aigpy.file.write(lrcPath, lyrics, 'w')
+            except:
+                lyrics = ''
 
-        __setMetaData__(track, album, path, contributors, lyrics)
-        Printf.success(track.title)
+            __setMetaData__(track, album, pathOrig, contributors, lyrics)
+        
+        if useAiff:
+            options = []
+            options += [ '-write_id3v2', '1' ]
+            command = [ 'ffmpeg', '-i', pathOrig ] + options + [ '-c:v', 'copy', path ]
+            command += [ '-loglevel', 'error' ]
+            subprocess.run(command)
+            remove(pathOrig)
+        
+        Printf.success(track.artist.name + ' - ' + track.title)
         return True, ''
     except Exception as e:
         Printf.err(f"DL Track[{track.title}] failed.{str(e)}")

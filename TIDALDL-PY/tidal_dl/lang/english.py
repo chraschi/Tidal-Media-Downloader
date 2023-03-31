@@ -36,7 +36,6 @@ class LangEnglish(object):
     SETTING_SHOW_PROGRESS = "Show progress"
     SETTING_SHOW_TRACKINFO = "Show Track Info"
     SETTING_SAVE_ALBUMINFO = "Save AlbumInfo.txt"
-    SETTING_DOWNLOAD_VIDEOS = "Download videos"
     SETTING_ADD_LYRICS = "Add lyrics"
     SETTING_LYRICS_SERVER_PROXY = "Lyrics server proxy"
     SETTING_ADD_LRC_FILE = "Save timed lyrics (.lrc file)"
@@ -44,6 +43,7 @@ class LangEnglish(object):
     SETTING_APIKEY = "APIKey support"
     SETTING_ADD_TYPE_FOLDER = "Add Type-Folder"
     SETTING_DOWNLOAD_DELAY = "Use Download Delay"
+    SETTING_USE_AIFF = "Use AIFF instead of FLAC"
 
     CHOICE = "CHOICE"
     FUNCTION = "FUNCTION"
@@ -88,13 +88,13 @@ class LangEnglish(object):
     CHANGE_SHOW_PROGRESS = "Show progress('0'-No,'1'-Yes):"
     CHANGE_SHOW_TRACKINFO = "Show track info('0'-No,'1'-Yes):"
     CHANGE_SAVE_ALBUM_INFO = "Save AlbumInfo.txt('0'-No,'1'-Yes):"
-    CHANGE_DOWNLOAD_VIDEOS = "Download videos (when downloading playlists, albums, mixes)('0'-No,'1'-Yes):"
     CHANGE_ADD_LYRICS = "Add lyrics('0'-No,'1'-Yes):"
     CHANGE_LYRICS_SERVER_PROXY = "Lyrics server proxy('0'-not modify):"
     CHANGE_ADD_LRC_FILE = "Save timed lyrics .lrc file ('0'-No,'1'-Yes):"
     CHANGE_ADD_TYPE_FOLDER = "Add Type-Folder,eg Album/Video/Playlist('0'-No,'1'-Yes):"
     CHANGE_MULITHREAD_DOWNLOAD = "Multi thread download('0'-No,'1'-Yes):"
     CHANGE_USE_DOWNLOAD_DELAY = "Use Download Delay('0'-No,'1'-Yes):"
+    CHANGE_USE_AIFF = "Use AIFF instead of FLAC('0'-No,'1'-Yes):"
 
     # {} are required in these strings
     AUTH_START_LOGIN = "Starting login process..."
